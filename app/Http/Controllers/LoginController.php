@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Mails\ForgotSendMail;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -17,7 +22,7 @@ class LoginController extends Controller
             return redirect()->route('home');
         }
 
-        return view('login');
+        return view('auth.login');
     }
 
     public function authenticate(Request $request)
@@ -42,26 +47,34 @@ class LoginController extends Controller
 
     public function forgot()
     {
-        return view('auth.forgot-password');
+        return view('auth.forgot');
     }
 
     public function sendEmailForgot(Request $request)
     {
-        $request->validate(['email' => 'required|email|exists:users,email']);
+        $request->validate(['email' => 'required|email|exists:users,email'],
+            ['exists' => 'Sem cadastro para o e-mail informado.']);
 
+        $email = $request->input('email');
 
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+        $token = Str::random(60);
 
-        return $status === Password::RESET_LINK_SENT
-            ? back()->with(['status' => __($status)])
-            : back()->withErrors(['email' => __($status)]);
+        DB::table('password_resets')->insert([
+            'email' => $email,
+            'token' => $token,
+            'created_at' => Carbon::now()
+        ]);
+
+        $user = User::where('email', $email)->first()->id;
+
+        Event::dispatch(new \App\Events\ForgotSendMail($user, $token, 'company'));
+
+        return redirect()->back()->with('status', 'Senha de acesso enviada para o e-mail');
     }
 
     public function resetPassword($token)
     {
-        return view('auth.reset-password', ['token' => $token]);
+        return view('auth.login', ['token' => $token]);
     }
 
     public function resetPasswordUpdate(Request $request)
