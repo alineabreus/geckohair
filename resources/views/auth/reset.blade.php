@@ -1,7 +1,7 @@
 @extends('auth.template')
 
 @section('form')
-    <form class="form" action="{{route('password.update')}}" method="POST">
+    <form class="form" action="{{route('password.update', $token)}}" method="POST">
         @csrf
         <!--begin::Title-->
         <div class="pb-5 pb-lg-15">

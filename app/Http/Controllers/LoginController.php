@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\Mails\ForgotSendMail;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
@@ -74,32 +75,31 @@ class LoginController extends Controller
 
     public function resetPassword($token)
     {
-        return view('auth.login', ['token' => $token]);
+        return view('auth.reset', ['token' => $token]);
     }
 
-    public function resetPasswordUpdate(Request $request)
+    public function resetPasswordUpdate(Request $request, $token)
     {
-        $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
+        if (!$passwordResets = DB::table('password_resets')->where('token', $token)->first())
+        {
+            return redirect()->back()->with('token inválido.');
+        }
+
+        if (!$user = User::where('email', $passwordResets->email)->first())
+        {
+            return redirect()->back()->with('usuário não existe.');
+        }
+
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        DB::table('password_resets')->where('email', $passwordResets->email)->delete();
+
+        Auth::attempt([
+            'email' => $user->email,
+            'password' => $request->input('password'),
         ]);
 
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user, $password) use ($request) {
-                $user->forceFill([
-                    'password' => Hash::make($password)
-                ])->save();
-
-                $user->setRememberToken(Str::random(60));
-
-                event(new PasswordReset($user));
-            }
-        );
-
-        return $status == Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('status', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
+        return redirect()->route('home')->with('status', 'Senha alterada com sucesso');
     }
 }
