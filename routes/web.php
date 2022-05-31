@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
     })->name('home');
 
     Route::get('users', [UserController::class, 'index'])->name('users');
+    Route::get('users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('users/create', [UserController::class, 'store'])->name('users.store');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 

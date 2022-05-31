@@ -20,6 +20,7 @@
                     <th>Salário</th>
                     <th>Telefone</th>
                     <th>Celular</th>
+                    <th>Alterar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,9 @@
                         <td>{{$employee->salary}}</td>
                         <td>{{$employee->phone}}</td>
                         <td>{{$employee->mobile}}</td>
+                        <td>
+                            <a href="{{route('home')}}"><i class="fa fa-pencil-alt"></i></a>
+                        </td>
                     </tr>
                 @endforeach
 
