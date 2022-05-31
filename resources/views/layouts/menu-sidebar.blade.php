@@ -38,8 +38,8 @@
                         <i class="far fa-check-square"></i>Clientes</a>
                 </li>
                 <li>
-                    <a href="calendar.html">
-                        <i class="fas fa-calendar-alt"></i>Funcionários</a>
+                    <a href="{{route('users')}}">
+                        <i class="fas fa-hand-paper"></i>Funcionários</a>
                 </li>
                 <li>
                     <a href="map.html">

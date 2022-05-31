@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\User\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('welcome');
     })->name('home');
+
+    Route::get('users', [UserController::class, 'index'])->name('users');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 

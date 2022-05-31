@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <!-- Required meta tags-->
@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>GeckoHair | @yield('title')</title>
 
     <!-- Fontfaces CSS-->
     <link href="{{asset('css/font-face.css')}}" rel="stylesheet" media="all">
