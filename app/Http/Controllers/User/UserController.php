@@ -43,4 +43,24 @@ class UserController extends Controller
 
         return redirect()->route('users')->with('status', 'Usuário cadastrado com sucesso.');
     }
+
+    public function delete($email)
+    {
+        $user = User::query()->where('email', $email)->first();
+
+        Employee::query()->where('user_id', $user->id)->delete();
+        $user->delete();
+
+        return redirect()->back()->with('status', 'Usuário excluído com sucesso.');
+    }
+
+    public function edit()
+    {
+        return view('user.update');
+    }
+
+    public function update()
+    {
+
+    }
 }

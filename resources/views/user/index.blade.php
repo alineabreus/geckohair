@@ -18,9 +18,9 @@
                     <th>E-mail</th>
                     <th>Cargo</th>
                     <th>Salário</th>
-                    <th>Telefone</th>
                     <th>Celular</th>
                     <th>Alterar</th>
+                    <th>Remover</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -30,10 +30,12 @@
                         <td>{{$employee->user->email ?? null}}</td>
                         <td>{{$employee->role->title}}</td>
                         <td>{{$employee->salary}}</td>
-                        <td>{{$employee->phone}}</td>
                         <td>{{$employee->mobile}}</td>
                         <td>
                             <a href="{{route('home')}}"><i class="fa fa-pencil-alt"></i></a>
+                        </td>
+                        <td>
+                            <a href="{{route('users.delete', $employee->user->email)}}"><i class="fa fa-trash-alt"></i></a>
                         </td>
                     </tr>
                 @endforeach
