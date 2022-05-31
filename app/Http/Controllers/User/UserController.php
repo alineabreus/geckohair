@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Create;
+use App\Http\Requests\User\Update;
 use App\Models\Employee\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -41,7 +42,7 @@ class UserController extends Controller
             'user_id' => $user->id,
         ]);
 
-        return redirect()->route('users')->with('status', 'Usuário cadastrado com sucesso.');
+        return redirect()->route('users')->with('message', 'Usuário cadastrado com sucesso.');
     }
 
     public function delete($email)
@@ -51,16 +52,33 @@ class UserController extends Controller
         Employee::query()->where('user_id', $user->id)->delete();
         $user->delete();
 
-        return redirect()->back()->with('status', 'Usuário excluído com sucesso.');
+        return redirect()->back()->with('message', 'Usuário excluído com sucesso.');
     }
 
-    public function edit()
+    public function edit($id)
     {
-        return view('user.update');
+        $user = User::query()->where('id', $id)->first();
+
+        return view('user.update')->with(compact('user'));
     }
 
-    public function update()
+    public function update(Update $request, $id)
     {
+        $data = $request->validated();
 
+        $user = User::query()->where('id', $id)->update([
+            'name' => $data['name'] ?? null,
+            'email' => $data['email'] ?? null
+        ]);
+
+        $employee = Employee::query()->where('user_id', $id)->update([
+           'name' => $data['name'] ?? null,
+           'phone' => $data['phone'] ?? null,
+           'mobile' => $data['mobile'] ?? null,
+           'employee_role_id' => $data['role'] ?? null,
+           'salary' => $data['salary'] ?? null,
+        ]);
+
+        return redirect()->route('users')->with('message', 'Usuário alterado com sucesso.');
     }
 }

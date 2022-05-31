@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Employee\Employee;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -44,5 +45,10 @@ class User extends Authenticatable implements  CanResetPassword
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function employee()
+    {
+        return $this->hasOne(Employee::class, 'user_id', 'id');
+    }
 
 }

@@ -1,7 +1,7 @@
 <div class="account-wrap">
     <div class="account-item clearfix js-item-menu">
         <div class="image">
-            <img src="images/icon/avatar-02.jpg" alt="Aline Abreu" />
+            <img src="{{asset('images/icon/avatar-02.jpg')}}" alt="Aline Abreu" />
         </div>
         <div class="content">
             <a class="js-acc-btn" href="#">Aline Abreu</a>
