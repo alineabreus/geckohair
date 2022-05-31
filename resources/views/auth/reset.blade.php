@@ -1,5 +1,7 @@
 @extends('auth.template')
 
+@section('title') Inserir nova senha @endsection
+
 @section('form')
     <form class="form" action="{{route('password.update', $token)}}" method="POST">
         @csrf

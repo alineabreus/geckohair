@@ -1,6 +1,6 @@
 <aside class="menu-sidebar d-none d-lg-block">
     <div class="logo">
-        <a href="#">
+        <a href="{{route('home')}}">
             <img src="{{asset('images/icon/logo.png')}}" alt="Cool Admin" />
         </a>
     </div>
@@ -16,7 +16,7 @@
                         <i class="far fa-check-square"></i>Clientes</a>
                 </li>
                 <li>
-                    <a href="map.html">
+                    <a href="{{route('services')}}">
                         <i class="fas fa-handshake"></i>Serviços</a>
                 </li>
                 <li>
@@ -30,10 +30,6 @@
                 <li>
                     <a href="form.html">
                         <i class="far fa-check-square"></i>Clientes</a>
-                </li>
-                <li>
-                    <a href="map.html">
-                        <i class="fas fa-handshake"></i>Serviços</a>
                 </li>
                 <li class="has-sub">
                     <a class="js-arrow" href="#">

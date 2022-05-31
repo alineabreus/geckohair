@@ -1,5 +1,7 @@
 @extends('auth.template')
 
+@section('title') Login @endsection
+
 @section('form')
     <form action="{{route('authenticate')}}" method="post">
         @csrf

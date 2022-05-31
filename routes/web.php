@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Service\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ Route::post('/reset-password/{token}', [LoginController::class, 'resetPasswordUp
 Route::middleware('auth')->group(function () {
 
     Route::get('/', function () {
-        return view('welcome');
+        return view('index');
     })->name('home');
 
     Route::get('users', [UserController::class, 'index'])->name('users');
@@ -42,6 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::get('customers/delete/{email}', [CustomerController::class, 'delete'])->name('customers.delete');
     Route::get('customers/edit/{id}', [CustomerController::class, 'edit'])->name('customers.edit');
     Route::post('customers/edit/{id}', [CustomerController::class, 'update'])->name('customers.update');
+
+    Route::get('services', [ServiceController::class, 'index'])->name('services');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 

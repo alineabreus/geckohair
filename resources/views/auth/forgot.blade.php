@@ -1,5 +1,7 @@
 @extends('auth.template')
 
+@section('title') Esqueceu a senha @endsection
+
 @section('form')
     <!--begin::Form-->
     <form class="form" action="{{route('password.email')}}" method="POST">
