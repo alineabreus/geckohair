@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\Create;
-use App\Http\Requests\User\Update;
+use App\Http\Requests\Customer\Create;
+use App\Http\Requests\Customer\Update;
+use App\Models\Customer;
 use App\Models\Employee\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,9 +14,9 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $employees = Employee::query()->paginate(15);
+        $customers = Customer::query()->paginate(15);
 
-        return view('customer.index')->with(compact('employees'));
+        return view('customer.index')->with(compact('customers'));
     }
 
     public function create()
@@ -27,58 +28,55 @@ class CustomerController extends Controller
     {
         $data = $request->validated();
 
-        $user = User::create([
+        $customer = Customer::create([
             'name' => $data['name'] ?? null,
-            'email' => $data['email'] ?? null,
-            'password' => bcrypt('123456')
-        ]);
-
-        $employee = Employee::create([
-            'name' => $data['name'] ?? null,
+            'observacao' => $data['observacao'] ?? null,
+            'birthday' => $data['birthday'] ?? null,
+            'city' => $data['city'] ?? null,
+            'district' => $data['district'] ?? null,
+            'street' => $data['street'] ?? null,
+            'number' => $data['number'] ?? null,
+            'comp' => $data['comp'] ?? null,
             'phone' => $data['phone'] ?? null,
             'mobile' => $data['mobile'] ?? null,
-            'employee_role_id' => $data['role'] ?? null,
-            'salary' => $data['salary'] ?? null,
-            'user_id' => $user->id,
+            'email' => $data['email'] ?? null,
         ]);
 
-        return redirect()->route('customers')->with('message', 'Usuário cadastrado com sucesso.');
+        return redirect()->route('customers')->with('message', 'Cliente cadastrado com sucesso.');
     }
 
     public function delete($email)
     {
-        $user = User::query()->where('email', $email)->first();
+        $customer = Customer::query()->where('email', $email)->delete();
 
-        Employee::query()->where('user_id', $user->id)->delete();
-        $user->delete();
-
-        return redirect()->back()->with('message', 'Usuário excluído com sucesso.');
+        return redirect()->back()->with('message', 'Cliente excluído com sucesso.');
     }
 
     public function edit($id)
     {
-        $user = User::query()->where('id', $id)->first();
+        $customer = Customer::query()->where('id', $id)->first();
 
-        return view('customer.update')->with(compact('user'));
+        return view('customer.update')->with(compact('customer'));
     }
 
     public function update(Update $request, $id)
     {
         $data = $request->validated();
 
-        $user = User::query()->where('id', $id)->update([
+        $customer = Customer::query()->where('id', $id)->update([
             'name' => $data['name'] ?? null,
-            'email' => $data['email'] ?? null
-        ]);
-
-        $employee = Employee::query()->where('user_id', $id)->update([
-            'name' => $data['name'] ?? null,
+            'observacao' => $data['observacao'] ?? null,
+            'birthday' => $data['birthday'] ?? null,
+            'city' => $data['city'] ?? null,
+            'district' => $data['district'] ?? null,
+            'street' => $data['street'] ?? null,
+            'number' => $data['number'] ?? null,
+            'comp' => $data['comp'] ?? null,
             'phone' => $data['phone'] ?? null,
             'mobile' => $data['mobile'] ?? null,
-            'employee_role_id' => $data['role'] ?? null,
-            'salary' => $data['salary'] ?? null,
+            'email' => $data['email'] ?? null,
         ]);
 
-        return redirect()->route('customers')->with('message', 'Usuário alterado com sucesso.');
+        return redirect()->route('customers')->with('message', 'Cliente alterado com sucesso.');
     }
 }

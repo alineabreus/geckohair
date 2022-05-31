@@ -29,26 +29,24 @@
                 <tr>
                     <th>Nome</th>
                     <th>E-mail</th>
-                    <th>Cargo</th>
-                    <th>Salário</th>
+                    <th>Nascimento</th>
                     <th>Celular</th>
                     <th>Alterar</th>
                     <th>Remover</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($employees as $employee)
+                @foreach($customers as $customer)
                     <tr>
-                        <td>{{$employee->name}}</td>
-                        <td>{{$employee->user->email ?? null}}</td>
-                        <td>{{$employee->role->title}}</td>
-                        <td>{{$employee->salary}}</td>
-                        <td>{{$employee->mobile}}</td>
+                        <td>{{$customer->name}}</td>
+                        <td>{{$customer->email ?? null}}</td>
+                        <td>{{$customer->birthday}}</td>
+                        <td>{{$customer->mobile}}</td>
                         <td class="text-center">
-                            <a href="{{route('customers.edit', $employee->user->id)}}"><i class="fa fa-pencil-alt"></i></a>
+                            <a href="{{route('customers.edit', $customer->id)}}"><i class="fa fa-pencil-alt"></i></a>
                         </td>
                         <td class="text-center">
-                            <a style="color:red;" href="{{route('customers.delete', $employee->user->email)}}"><i class="fa fa-trash-alt"></i></a>
+                            <a style="color:red;" href="{{route('customers.delete', $customer->email)}}"><i class="fa fa-trash-alt"></i></a>
                         </td>
                     </tr>
                 @endforeach
