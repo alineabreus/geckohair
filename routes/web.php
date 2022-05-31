@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Customer\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,12 @@ Route::middleware('auth')->group(function () {
     Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
     Route::post('users/edit/{id}', [UserController::class, 'update'])->name('users.update');
 
+    Route::get('customers', [CustomerController::class, 'index'])->name('customers');
+    Route::get('customers/create', [CustomerController::class, 'create'])->name('customers.create');
+    Route::post('customers/create', [CustomerController::class, 'store'])->name('customers.store');
+    Route::get('customers/delete/{email}', [CustomerController::class, 'delete'])->name('customers.delete');
+    Route::get('customers/edit/{id}', [CustomerController::class, 'edit'])->name('customers.edit');
+    Route::post('customers/edit/{id}', [CustomerController::class, 'update'])->name('customers.update');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 

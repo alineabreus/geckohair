@@ -7,6 +7,14 @@
     <div class="menu-sidebar__content js-scrollbar1">
         <nav class="navbar-sidebar">
             <ul class="list-unstyled navbar__list">
+                <li>
+                    <a href="{{route('users')}}">
+                        <i class="fas fa-hand-paper"></i>Funcionários</a>
+                </li>
+                <li>
+                    <a href="{{route('customers')}}">
+                        <i class="far fa-check-square"></i>Clientes</a>
+                </li>
                 <li class="active has-sub">
                     <a class="js-arrow" href="#">
                         <i class="fas fa-tachometer-alt"></i>Vendas</a>
@@ -36,10 +44,6 @@
                 <li>
                     <a href="form.html">
                         <i class="far fa-check-square"></i>Clientes</a>
-                </li>
-                <li>
-                    <a href="{{route('users')}}">
-                        <i class="fas fa-hand-paper"></i>Funcionários</a>
                 </li>
                 <li>
                     <a href="map.html">
