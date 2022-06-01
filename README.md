@@ -1,3 +1,48 @@
+## Passo a Passo para Execução do Projeto
+
+<ul> 1º Clonar no repositório do projeto disponivel em: https://github.com/alineabreus/geckohair; </ul>
+<ul> 2º Entrar no diretório do projeto clonado e executar o seguinte comando: composer install – ignore- platform-reqs; </ul>
+<ul> 3º Renomear o arquivo .env.example para .env; </ul>
+<ul> 4º Executar o seguinte comando no terminal dentro do projeto: php artisan key:generate; </ul>
+<ul> 5º Popular o arquivo .env com as configurações de banco de dados; </ul>
+<ul> 6º Popular o arquivo .env com as configurações de e-mail; </ul>
+<ul> 7º Executar o seguinte comando no terminal dentro do projeto: php artisan migrate –seed; </ul>
+<ul> 8º Executar o servidor laravel com os seguinte comando: php artisan serve; </ul>
+<ul> 9º Abrir o browser/navegador de sua preferência e acessar a URL: localhost:8000; </ul>
+<ul> 10º Realizar o login com as seguintes credenciais: alineabreu1998@outlook.com | senha: </ul>
+
+## Dependências
+#### Preferencialmente:
+<ul> git vesão 2.34.1 </ul>
+<ul> PHP 8.1.5 </ul>
+<ul> composer 2.3.4 </ul>
+<ul> MySQL 8.0.29 </ul>
+
+## Vídeo de Demonstração Disponível em:
+<p> https://youtu.be/H85DkB3svnI </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+
+
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
